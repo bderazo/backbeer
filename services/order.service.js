@@ -10,18 +10,24 @@ class OrderService {
     return newOrder;
   }
 
+  async addItem(data) {
+    const newItem = await models.OrderProduct.create(data);
+    return newItem;
+  }
+
   async find() {
     return [];
   }
 
   async findOne(id) {
-    //consulta anidada obtiene orden, cliente y usuario
     const order = await models.Order.findByPk(id, {
+      //consulta anidada obtiene orden, cliente y usuario
       include: [
         {
           association: 'customer',
           include: ['user'],
         },
+        'items',
       ],
     });
     return order;

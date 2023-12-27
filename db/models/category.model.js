@@ -27,8 +27,8 @@ const CategorySchema = {
 };
 
 class Category extends Model {
-  //UNA CATEGORIA TIENE MUCHOS PRODUCTOS
   static associate(models) {
+    //un category puede tener muchos productos
     this.hasMany(models.Product, {
       as: 'products',
       foreignKey: 'categoryId',

@@ -47,8 +47,8 @@ const ProductSchema = {
 };
 
 class Product extends Model {
-  //UN PRODUCTO PERTENECE A UNA CATEGORIA
   static associate(models) {
+    //un product pertenece a un category
     this.belongsTo(models.Category, { as: 'category' });
   }
 

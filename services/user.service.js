@@ -1,23 +1,26 @@
 const boom = require('@hapi/boom');
-const { models } = require('../libs/sequelize');
+
+const { models } = require('./../libs/sequelize');
 
 class UserService {
   constructor() {}
 
   async create(data) {
-    const newUser = await models.UserModel.create(data);
+    const newUser = await models.User.create(data);
     return newUser;
   }
 
   async find() {
-    const rta = await models.UserModel.findAll();
+    const rta = await models.User.findAll({
+      include: ['customer']
+    });
     return rta;
   }
 
   async findOne(id) {
-    const user = await models.UserModel.findByPk(id);
+    const user = await models.User.findByPk(id);
     if (!user) {
-      throw boom.notFound('User not found');
+      throw boom.notFound('user not found');
     }
     return user;
   }
@@ -30,8 +33,8 @@ class UserService {
 
   async delete(id) {
     const user = await this.findOne(id);
-    const rta = await user.destroy();
-    return rta;
+    await user.destroy();
+    return { id };
   }
 }
 

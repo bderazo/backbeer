@@ -1,5 +1,7 @@
 'use strict';
-const { UserSchema, USER_TABLE } = require('../db/models/user.model');
+
+const { UserSchema, USER_TABLE } = require('./../models/user.model');
+
 module.exports = {
   up: async (queryInterface) => {
     await queryInterface.createTable(USER_TABLE, UserSchema);
@@ -7,5 +9,5 @@ module.exports = {
 
   down: async (queryInterface) => {
     await queryInterface.dropTable(USER_TABLE);
-  },
+  }
 };
